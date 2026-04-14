@@ -1,0 +1,126 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{mdframed}
+\usepackage{xcolor}
+
+\geometry{a4paper, top=2cm, bottom=2cm, left=2.5cm, right=2.5cm}
+
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{3pt}
+\setlength{\belowdisplayshortskip}{3pt}
+
+\definecolor{noteblue}{RGB}{25, 80, 150}
+\definecolor{boxgray}{RGB}{246, 248, 252}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\vspace{2pt}\titlerule\vspace{4pt}]
+\titlespacing{\section}{0pt}{10pt}{4pt}
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+\titlespacing{\subsection}{0pt}{8pt}{2pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Daily JEE Advanced Problems}\\[4pt]
+  {\large JEE Advanced 2025 --- Paper I}\\[2pt]
+  {\small\color{gray} Daily Problem Series \quad|\quad Virat Dixit}
+\end{center}
+
+\vspace{4pt}
+\noindent\rule{\linewidth}{0.8pt}
+\vspace{4pt}
+
+\section*{Problem Statement}
+
+Let $\mathbb{R}$ denote the set of all real numbers. Let $f:\mathbb{R}\to\mathbb{R}$ be a function
+such that $f(x)>0$ for all $x\in\mathbb{R}$, and
+\[
+  f(x+y)=f(x)\,f(y)\quad\text{for all }x,y\in\mathbb{R}.
+\]
+Let the real numbers $a_1,a_2,a_3,\ldots$ with $a_1>0$ be an A.P.
+If $f(a_{31})=64\cdot f(a_{25})$ and
+\[
+  \sum_{i=1}^{50}f(a_i)=3\!\left(2^{25}+1\right),
+\]
+find the value of $\displaystyle\sum_{i=6}^{30}f(a_i)$.
+
+\vspace{6pt}
+\begin{mdframed}[backgroundcolor=boxgray, linecolor=noteblue, linewidth=0.8pt,
+                 innertopmargin=5pt, innerbottommargin=5pt,
+                 innerleftmargin=8pt, innerrightmargin=8pt,
+                 skipabove=4pt, skipbelow=4pt]
+\textbf{\color{noteblue}Note.} This problem combines functional equations, arithmetic progressions,
+geometric progressions, factorisation identities, and symmetry in summation.
+\end{mdframed}
+
+\section*{Solution}
+
+\subsection*{Step 1: Identify the form of $f$}
+
+Since $f(x+y)=f(x)f(y)$ with $f(x)>0$, the function must be exponential:
+$f(x)=e^{kx}$ for some real constant $k$.
+
+\subsection*{Step 2: Express $f(a_n)$ as a G.P.}
+
+Let the A.P.\ have first term $a_1$ and common difference $d$, so $a_n=a_1+(n-1)d$. Then
+\[
+  f(a_n)=f\!\bigl(a_1+(n-1)d\bigr)=f(a_1)\cdot[f(d)]^{n-1}.
+\]
+Setting $A=f(a_1)>0$ and $r=f(d)>0$:
+\[
+  f(a_n)=A\cdot r^{n-1}. \tag{1}
+\]
+So $f(a_1),f(a_2),\ldots,f(a_{50})$ form a \textbf{G.P.} with first term $A$ and common ratio $r$.
+
+\subsection*{Step 3: Find $r$}
+
+From $f(a_{31})=64\,f(a_{25})$ and (1):
+\[
+  Ar^{30}=64\cdot Ar^{24}
+  \implies r^6=64=2^6
+  \implies \boxed{r=2.}
+\]
+
+\subsection*{Step 4: Find $A$}
+
+Sum of first 50 terms:
+\[
+  \sum_{i=1}^{50}f(a_i)=A(1+2+\cdots+2^{49})=A(2^{50}-1).
+\]
+Given this equals $3(2^{25}+1)$, and factorising $2^{50}-1=(2^{25}+1)(2^{25}-1)$:
+\[
+  A(2^{25}+1)(2^{25}-1)=3(2^{25}+1)
+  \implies A(2^{25}-1)=3
+  \implies \boxed{A=\dfrac{3}{2^{25}-1}.} \tag{2}
+\]
+
+\subsection*{Step 5: Compute the required sum}
+
+\[
+  \sum_{i=6}^{30}f(a_i)
+  =A(2^5+2^6+\cdots+2^{29})
+  =A\cdot 2^5(2^{25}-1).
+\]
+Substituting $A$ from (2):
+\[
+  \sum_{i=6}^{30}f(a_i)
+  =\frac{3}{2^{25}-1}\cdot 32\cdot(2^{25}-1)
+  =3\times 32
+  =\boxed{96.}
+\]
+
+\vspace{8pt}
+\noindent\rule{\linewidth}{0.4pt}
+\vspace{4pt}
+\begin{center}
+\itshape
+``Problems worthy of attack prove their worth by fighting back.''\\[1pt]
+--- Paul Erd\H{o}s
+\end{center}
+
+\end{document}
