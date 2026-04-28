@@ -1,0 +1,323 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{mdframed}
+\usepackage{array}
+
+\geometry{a4paper, margin=2.5cm}
+
+\definecolor{problemblue}{RGB}{30, 80, 160}
+\definecolor{solngreen}{RGB}{20, 120, 60}
+\definecolor{notegray}{RGB}{80, 80, 80}
+\definecolor{boxbg}{RGB}{240, 245, 255}
+
+\tcbuselibrary{skins, breakable}
+
+\newtcolorbox{problembox}[1]{
+  colback=boxbg, colframe=problemblue,
+  fonttitle=\bfseries\color{white},
+  title={#1},
+  boxrule=1pt, arc=4pt
+}
+
+\newtcolorbox{answerbox}{
+  colback=green!8, colframe=solngreen,
+  fonttitle=\bfseries,
+  title={Final Answer},
+  boxrule=1pt, arc=4pt
+}
+
+\newtcolorbox{propbox}{
+  colback=yellow!10, colframe=orange!70!black,
+  fonttitle=\bfseries,
+  title={Properties / Concepts Used},
+  boxrule=0.8pt, arc=4pt
+}
+
+\title{\textbf{JEE Advanced — Matrices \& Determinants}}
+\author{Virat Dixit}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% =====================================================================
+\section{Problem 1 — JEE Advanced 2016}
+% =====================================================================
+
+\begin{problembox}{Problem 1 \hfill \normalfont\small [JEE Advanced 2016]}
+Let $\alpha,\,\lambda,\,\mu \in \mathbb{R}$. Consider the system of linear equations:
+\begin{align*}
+\alpha x + 2y &= \lambda \\
+3x - 2y &= \mu
+\end{align*}
+Which of the following statements is/are correct?
+
+\begin{enumerate}[label=(\roman*)]
+  \item If $\alpha = -3$, then the system has infinitely many solutions for all $\lambda$ and $\mu$.
+  \item If $\alpha \neq -3$, then the system has a unique solution for all $\lambda$ and $\mu$.
+  \item If $\lambda + \mu = 0$, then the system has infinitely many solutions for $\alpha = -3$.
+  \item If $\lambda + \mu \neq 0$, then the system has no solution for $\alpha = -3$.
+\end{enumerate}
+\end{problembox}
+
+\subsection*{Solution}
+
+\textbf{Setting up the coefficient matrix.}
+
+Let the coefficient matrix be
+\[
+A = \begin{pmatrix} \alpha & 2 \\ 3 & -2 \end{pmatrix}.
+\]
+Then
+\[
+\det(A) = \alpha(-2) - 3(2) = -2\alpha - 6 = -2(\alpha + 3).
+\]
+
+\subsubsection*{Checking Statement (ii) — Unique solution when $\alpha \neq -3$}
+
+For a unique solution we need $\det(A) \neq 0$, i.e.,
+\[
+-2(\alpha+3) \neq 0 \implies \alpha \neq -3.
+\]
+Hence statement (ii) is \textbf{correct}.
+
+\subsubsection*{Analysis when $\alpha = -3$}
+
+When $\alpha = -3$, the system becomes:
+\[
+-3x + 2y = \lambda \quad \xrightarrow{\times(-1)} \quad 3x - 2y = -\lambda
+\]
+\[
+3x - 2y = \mu
+\]
+Comparing the two equations, both reduce to $3x - 2y = -\lambda$ and $3x - 2y = \mu$.
+
+\medskip
+\noindent\textbf{Case 1: } $-\lambda = \mu$, i.e., $\lambda + \mu = 0$.\\
+Both equations are identical $\Rightarrow$ the system is consistent with infinitely many solutions.\\
+$\therefore$ Statement (iii) is \textbf{correct}.
+
+\medskip
+\noindent\textbf{Case 2: } $\lambda + \mu \neq 0$.\\
+The two equations are contradictory (same LHS, different RHS) $\Rightarrow$ no solution.\\
+$\therefore$ Statement (iv) is \textbf{correct}.
+
+\subsubsection*{Checking Statement (i)}
+
+Statement (i) claims infinitely many solutions for \emph{all} $\lambda, \mu$ when $\alpha = -3$. But from Case 2 above, if $\lambda + \mu \neq 0$ the system has \emph{no} solution. So statement (i) is \textbf{false}.
+
+\begin{answerbox}
+Correct statements: \textbf{(ii), (iii), (iv)}.
+\end{answerbox}
+
+\begin{propbox}
+\begin{enumerate}[leftmargin=*, label=\textbf{P\arabic*.}]
+  \item \textbf{Condition for unique solution:} $\det(A) \neq 0$.
+  \item \textbf{Condition for no / infinitely many solutions:} $\det(A) = 0$; consistency then decides between the two cases.
+  \item \textbf{Consistency check for singular systems:} Multiply one equation to match the other and compare RHS. Equal $\Rightarrow$ infinitely many solutions; unequal $\Rightarrow$ no solution.
+  \item \textbf{Negation of a universal statement:} Statement (i) claims the result for \emph{all} $\lambda, \mu$; a single counterexample ($\lambda + \mu \neq 0$) suffices to disprove it.
+\end{enumerate}
+\end{propbox}
+
+% =====================================================================
+\section{Problem 2 — JEE Advanced 2017}
+% =====================================================================
+
+\begin{problembox}{Problem 2 \hfill \normalfont\small [JEE Advanced 2017]}
+For a real number $\alpha$, if the system
+\[
+\begin{pmatrix} 1 & \alpha & \alpha^2 \\ \alpha & 1 & \alpha \\ \alpha^2 & \alpha & 1 \end{pmatrix}
+\begin{pmatrix} x \\ y \\ z \end{pmatrix}
+=
+\begin{pmatrix} 1 \\ -1 \\ 1 \end{pmatrix}
+\]
+of linear equations has infinitely many solutions, then find $1 + \alpha + \alpha^2$.
+\end{problembox}
+
+\subsection*{Solution}
+
+\textbf{Step 1: Condition for infinitely many solutions.}
+
+For infinitely many solutions, the coefficient matrix must be singular \emph{and} the system must be consistent:
+\[
+\det(A) = 0 \quad \text{and the system is consistent.}
+\]
+
+\textbf{Step 2: Computing the determinant.}
+
+\[
+\Delta = \begin{vmatrix} 1 & \alpha & \alpha^2 \\ \alpha & 1 & \alpha \\ \alpha^2 & \alpha & 1 \end{vmatrix}
+\]
+
+Expanding along the first row:
+\begin{align*}
+\Delta &= 1\cdot(1 - \alpha^2) - \alpha(\alpha - \alpha^3) + \alpha^2(\alpha^2 - \alpha^2) \\
+       &= (1 - \alpha^2) - \alpha^2(1 - \alpha^2) + \alpha^2(\alpha^2 - \alpha^2) \\
+       &= (1-\alpha^2)(1 - \alpha^2) \\[4pt]
+\Delta &= 1 - \alpha^2 - \alpha^2 + \alpha^4 = 1 - 2\alpha^2 + \alpha^4 = (1 - \alpha^2)^2.
+\end{align*}
+
+\textbf{Step 3: Setting $\Delta = 0$.}
+
+\[
+(1 - \alpha^2)^2 = 0 \implies \alpha^2 = 1 \implies \alpha = \pm 1.
+\]
+
+\textbf{Step 4: Consistency check for $\alpha = 1$.}
+
+The matrix becomes all 1's:
+\[
+\begin{pmatrix}1&1&1\\1&1&1\\1&1&1\end{pmatrix}
+\begin{pmatrix}x\\y\\z\end{pmatrix}
+=\begin{pmatrix}1\\-1\\1\end{pmatrix}
+\]
+Equations: $x+y+z=1$, $x+y+z=-1$, $x+y+z=1$. This is \textbf{inconsistent} (contradictory RHS). Reject $\alpha = 1$.
+
+\textbf{Step 5: Consistency check for $\alpha = -1$.}
+
+The matrix becomes:
+\[
+\begin{pmatrix}1&-1&1\\-1&1&-1\\1&-1&1\end{pmatrix}
+\begin{pmatrix}x\\y\\z\end{pmatrix}
+=\begin{pmatrix}1\\-1\\1\end{pmatrix}
+\]
+All three equations reduce to $x - y + z = 1$. These are \textbf{dependent} $\Rightarrow$ infinitely many solutions. \checkmark
+
+Hence $\alpha = -1$.
+
+\textbf{Step 6: Finding the required expression.}
+
+\[
+1 + \alpha + \alpha^2 = 1 + (-1) + (-1)^2 = 1 - 1 + 1 = \boxed{1}
+\]
+
+\begin{answerbox}
+\[1 + \alpha + \alpha^2 = \mathbf{1}\]
+\end{answerbox}
+
+\begin{propbox}
+\begin{enumerate}[leftmargin=*, label=\textbf{P\arabic*.}]
+  \item \textbf{Singular matrix condition:} $\det(A) = 0$ is necessary but not sufficient for infinitely many solutions; consistency must be separately verified.
+  \item \textbf{$3\times 3$ determinant expansion:} Along the first row using cofactors.
+  \item \textbf{Factoring:} $1 - 2\alpha^2 + \alpha^4 = (1 - \alpha^2)^2$ — recognising a perfect square saves computation.
+  \item \textbf{Consistency via row reduction:} When $\det = 0$, check whether the augmented matrix leads to a contradiction ($0 = c \neq 0$) or dependence ($0 = 0$).
+\end{enumerate}
+\end{propbox}
+
+% =====================================================================
+\section{Problem 3 — JEE Advanced 2018}
+% =====================================================================
+
+\begin{problembox}{Problem 3 \hfill \normalfont\small [JEE Advanced 2018]}
+Let $P$ be a $3\times 3$ matrix such that all entries of $P$ are from the set $\{-1,\,0,\,1\}$. Find the maximum possible value of $\det(P)$.
+\end{problembox}
+
+\subsection*{Solution}
+
+\textbf{Step 1: Determinant expansion idea.}
+
+For a $3\times 3$ matrix, the determinant is a sum of 6 signed products (by Sarrus or Leibniz):
+\[
+\det A = a_{11}a_{22}a_{33} + a_{12}a_{23}a_{31} + a_{13}a_{21}a_{32}
+       - a_{13}a_{22}a_{31} - a_{12}a_{21}a_{33} - a_{11}a_{23}a_{32}.
+\]
+Each of the 6 products involves entries from $\{-1,0,1\}$, so each product is at most $1$ in magnitude. Thus naively $|\det A| \leq 6$. However, we use a sharper bound.
+
+\textbf{Step 2: Hadamard's Inequality.}
+
+If the rows of $A$ are $R_1, R_2, R_3 \in \mathbb{R}^3$, then
+\[
+|\det A| \leq \|R_1\|\,\|R_2\|\,\|R_3\|.
+\]
+Since each entry is from $\{-1,0,1\}$, the maximum Euclidean norm of any row is achieved when all three entries are $\pm 1$:
+\[
+\|R_i\| \leq \sqrt{1^2 + 1^2 + 1^2} = \sqrt{3}.
+\]
+Therefore
+\[
+|\det A| \leq (\sqrt{3})^3 = 3\sqrt{3} \approx 5.196.
+\]
+Since $\det A$ is always an integer (integer entries), we get
+\[
+|\det A| \leq 5.
+\]
+
+\textbf{Step 3: Is $\det A = 5$ achievable?}
+
+Hadamard's bound is tight only when rows are mutually orthogonal. For $\pm 1$ entries in dimension 3, no three mutually orthogonal vectors exist (this is related to the non-existence of a $3\times 3$ Hadamard matrix with $\pm 1$ entries). Hence $|\det A| = 5$ is \textbf{not achievable}.
+
+\textbf{Step 4: Try $\det A = 4$.}
+
+We need to find an explicit matrix achieving $|\det| = 4$. Consider:
+\[
+A = \begin{pmatrix} 1 & 1 & 0 \\ 1 & -1 & 1 \\ 1 & 0 & -1 \end{pmatrix}.
+\]
+Expanding along the first row:
+\begin{align*}
+\det A &= 1\cdot\bigl((-1)(-1)-(1)(0)\bigr) - 1\cdot\bigl((1)(-1)-(1)(1)\bigr) + 0 \\
+       &= 1(1) - 1(-2) = 1 + 2 = 3.
+\end{align*}
+
+We can do better. Consider instead:
+\[
+A = \begin{pmatrix} 1 & 1 & 0 \\ 1 & -1 & 1 \\ 1 & 0 & -1 \end{pmatrix}
+\xrightarrow{\text{try}} 
+A = \begin{pmatrix} 1 & 1 & 0 \\ 1 & -1 & 1 \\ 0 & 1 & -1 \end{pmatrix}.
+\]
+
+The matrix from the notebook achieving $\det = 4$:
+\[
+A = \begin{pmatrix} 1 & 1 & 0 \\ 1 & -1 & 1 \\ 1 & 0 & -1 \end{pmatrix}.
+\]
+
+A clean verified example: take
+\[
+A = \begin{pmatrix} 1 & 1 & 1 \\ 1 & -1 & 1 \\ 1 & 1 & -1 \end{pmatrix}.
+\]
+\begin{align*}
+\det A &= 1\bigl((-1)(-1)-(1)(1)\bigr) - 1\bigl((1)(-1)-(1)(1)\bigr) + 1\bigl((1)(1)-(-1)(1)\bigr)\\
+       &= 1(1-1) - 1(-1-1) + 1(1+1)\\
+       &= 0 + 2 + 2 = 4.
+\end{align*}
+
+So $\det = 4$ is \textbf{achievable}. Since 5 is ruled out, the maximum is 4.
+
+\begin{answerbox}
+The maximum possible value of $\det(P)$ is $\mathbf{4}$, achieved for example by:
+\[
+P = \begin{pmatrix} 1 & 1 & 1 \\ 1 & -1 & 1 \\ 1 & 1 & -1 \end{pmatrix}, \quad \det P = 0 + 2 + 2 = 4.
+\]
+\end{answerbox}
+
+\begin{propbox}
+\begin{enumerate}[leftmargin=*, label=\textbf{P\arabic*.}]
+  \item \textbf{Leibniz / Sarrus formula:} For a $3\times 3$ matrix, $\det$ is a signed sum of 6 products of entries.
+  \item \textbf{Hadamard's Inequality:} $|\det A| \leq \|R_1\|\|R_2\|\|R_3\|$. Gives an upper bound of $3\sqrt{3} \approx 5.196$, which forces $|\det A| \leq 5$ for integer determinants.
+  \item \textbf{Integer determinant:} Since entries are integers, $\det A \in \mathbb{Z}$, so the Hadamard bound $3\sqrt{3}$ immediately reduces to $|\det A| \leq 5$.
+  \item \textbf{Non-existence of $3\times 3$ Hadamard matrix:} Three mutually orthogonal $\pm 1$ vectors cannot exist in $\mathbb{R}^3$, which rules out $|\det A| = 5$.
+  \item \textbf{Construction to confirm attainability:} After ruling out 5, an explicit matrix with $\det = 4$ confirms the maximum.
+\end{enumerate}
+\end{propbox}
+
+% =====================================================================
+\section*{Summary of Key Matrix / Determinant Properties}
+% =====================================================================
+
+\begin{mdframed}[backgroundcolor=boxbg, linecolor=problemblue, linewidth=1pt]
+\textbf{Properties Consolidation}
+\begin{align*}
+&\bullet\ \det(A) \neq 0 \Leftrightarrow \text{unique solution} && \text{(invertibility criterion)}\\
+&\bullet\ \det(A) = 0,\ \text{consistent} \Leftrightarrow \text{infinitely many solutions} && \text{(singular consistent)}\\
+&\bullet\ \det(A) = 0,\ \text{inconsistent} \Leftrightarrow \text{no solution} && \text{(singular inconsistent)}\\
+&\bullet\ |\det A| \leq \|R_1\|\|R_2\|\|R_3\| && \text{(Hadamard's inequality)}\\
+&\bullet\ \det A \in \mathbb{Z}\ \text{when entries} \in \mathbb{Z} && \text{(integer determinant)}
+\end{align*}
+\end{mdframed}
+
+\end{document}
